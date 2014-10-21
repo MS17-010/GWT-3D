@@ -109,7 +109,7 @@ if __name__ == "__main__":
     if options.basicauth:
         username = raw_input("Basic Auth Username: ")
         password = getpass.getpass("Basic Auth Password: ")
-        basic_auth_encoded = base64.encodestring( '%s:%s' % (username, password)).strip()
+        basic_auth_encoded = base64.encodestring('%s:%s' % (username, password)).strip()
         req.add_header("Authorization", "Basic %s" % basic_auth_encoded)
 
     if options.cookies:
@@ -126,6 +126,7 @@ if __name__ == "__main__":
     all_rpc_files = []
     how_many_html_files_to_read = 1
 
+    t = False
     for html_file in html_files:
         if how_many_html_files_to_read == 0:
             break
@@ -169,81 +170,69 @@ if __name__ == "__main__":
                     continue
 
                 methods.append("%s(" % method_name.replace('_Proxy.', '.'))
-                # print("line", line)
-                # print("js", rpc_js_function)
-                # print("")
 
-                # Parameter Enumeration
-                for i in range(0, len(rpc_js_function)):
-                    try_match = re.match("^try{.*$", rpc_js_function[i])
+                if re.search("try{.*", rpc_method_match.group(0)):
+                    # Parameter Enumeration
+                    for i in range(0, len(rpc_js_function)):
+                        try_match = re.match("^try{.*$", rpc_js_function[i])
 
-                    if try_match:
-                        i += 1
-                        payload_function = ""
-                        # print("rpc_js_function", rpc_js_function[i])
+                        if try_match:
+                            if not t:
+                                t = True
 
-                        func_match = re.match(
-                            "^([A-Za-z0-9_\$]+)\(.*",
-                            rpc_js_function[i]
-                        )
-
-                        if func_match:
-                            # print("func", func_match.groups())
-                            payload_function = func_match.group(1)
-
-                        num_of_params = 0
-
-                        param_match = re.search(
-                            "^" + re.escape(payload_function) + "\([A-Za-z0-9_\$]+\.[A-Za-z0-9_\$]+,([A-Za-z0-9_\$]+)\)",
-                            rpc_js_function[i]
-                        )
-
-                        # print(
-                        #     "^" + re.escape(payload_function) + "\([A-Za-z0-9_\$]+\.[A-Za-z0-9_\$]+,([A-Za-z0-9_\$]+)\)",
-                        #     rpc_js_function[i]
-                        # )
-                        
-                        if param_match is None:
                             i += 1
+                            payload_function = ""
+
+                            func_match = re.match(
+                                "^([A-Za-z0-9_\$]+)\(.*",
+                                rpc_js_function[i]
+                            )
+
+                            if func_match:
+                                # print("func", func_match.groups())
+                                payload_function = func_match.group(1)
+
+                            num_of_params = 0
 
                             param_match = re.search(
                                 "^" + re.escape(payload_function) + "\([A-Za-z0-9_\$]+\.[A-Za-z0-9_\$]+,([A-Za-z0-9_\$]+)\)",
                                 rpc_js_function[i]
                             )
 
-                            # print(
-                            #     "^" + re.escape(payload_function) + "\([A-Za-z0-9_\$]+\.[A-Za-z0-9_\$]+,([A-Za-z0-9_\$]+)\)",
-                            #     rpc_js_function[i]
-                            # )
+                            if param_match is None:
+                                i += 1
 
-                        if param_match:
-                            # print("param", param_match.groups())
-                            num_of_params = int(get_global_val(param_match.group(1), the_page))
-                            # print("num", num_of_params)
+                                param_match = re.search(
+                                    "^" + re.escape(payload_function) + "\([A-Za-z0-9_\$]+\.[A-Za-z0-9_\$]+,([A-Za-z0-9_\$]+)\)",
+                                    rpc_js_function[i]
+                                )
 
-                        for j in range(0, num_of_params):
-                            i += 1
+                            if param_match:
+                                num_of_params = int(get_global_val(param_match.group(1), the_page))
 
-                            param_var_match = re.match(
-                                "^" + re.escape(payload_function) + "\([A-Za-z0-9_\$]+\.[A-Za-z0-9_\$]+,[A-Za-z0-9_\$]+\+"
-                                "[A-Za-z0-9_\$]+\([A-Za-z0-9_\$]+,([A-Za-z0-9_\$]+)\)\)$",
-                                rpc_js_function[i]
-                            )
+                            for j in range(0, num_of_params):
+                                i += 1
 
-                            if param_var_match:
-                                param = get_global_val(param_var_match.group(1), the_page)
-                                print("var", param_var_match.groups(), "param_name", param)
+                                param_var_match = re.match(
+                                    "^" + re.escape(payload_function) + "\([A-Za-z0-9_\$]+\.[A-Za-z0-9_\$]+,[A-Za-z0-9_\$]+\+"
+                                    "[A-Za-z0-9_\$]+\([A-Za-z0-9_\$]+,([A-Za-z0-9_\$]+)\)\)$",
+                                    rpc_js_function[i]
+                                )
 
-                                if param is not None:
-                                    methods[-1] = methods[-1] + param + ","
-                                else:
-                                    methods[-1] = methods[-1] + "undefined,"
+                                if param_var_match:
+                                    param = get_global_val(param_var_match.group(1), the_page)
 
-                        a_method = methods[-1][:-1]
-                        methods[-1] = a_method + ")"
-                        # sys.exit()
+                                    if param is not None:
+                                        methods[-1] = methods[-1] + param + ","
+                                    else:
+                                        methods[-1] = methods[-1] + "undefined,"
 
-                        break
+                            a_method = methods[-1][:-1]
+                            methods[-1] = a_method + ")"
+
+                            break
+                else:
+                    methods[-1] += ")"
 
     line_decor = "\n===========================\n"
     print("\n%sEnumerated Methods%s" % (line_decor, line_decor))
