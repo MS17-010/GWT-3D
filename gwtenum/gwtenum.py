@@ -25,7 +25,6 @@ import re
 import base64
 import getpass
 from optparse import OptionParser
-import sys
 
 
 desc = "A tool for enumerating GWT RPC methods"
@@ -171,6 +170,7 @@ if __name__ == "__main__":
 
                 methods.append("%s(" % method_name.replace('_Proxy.', '.'))
 
+
                 if re.search("try{.*", rpc_method_match.group(0)):
                     # Parameter Enumeration
                     for i in range(0, len(rpc_js_function)):
@@ -189,7 +189,6 @@ if __name__ == "__main__":
                             )
 
                             if func_match:
-                                # print("func", func_match.groups())
                                 payload_function = func_match.group(1)
 
                             num_of_params = 0
@@ -223,16 +222,70 @@ if __name__ == "__main__":
                                     param = get_global_val(param_var_match.group(1), the_page)
 
                                     if param is not None:
-                                        methods[-1] = methods[-1] + param + ","
+                                        methods[-1] = methods[-1] + param + ", "
                                     else:
-                                        methods[-1] = methods[-1] + "undefined,"
+                                        methods[-1] = methods[-1] + "undefined, "
 
-                            a_method = methods[-1][:-1]
+                            a_method = methods[-1][:-2]
                             methods[-1] = a_method + ")"
 
                             break
                 else:
-                    methods[-1] += ")"
+                    func_match = re.search(
+                        "([a-z])=.*?\([A-Za-z0-9_\$]+\);(.*?)\(\\1\.[A-Za-z0-9_\$]+,"
+                        + "[A-Za-z0-9_\$]+\+[A-Za-z0-9_\$]+\([A-Za-z0-9_\$]+,[A-Za-z0-9_\$]+\)\)",
+                        line
+                    )
+
+                    if func_match is not None:
+                        payload_function = func_match.group(2)
+
+                        for i in range(0, len(rpc_js_function)):
+                            func_match = re.search(
+                                "^" + re.escape(payload_function) + "\([A-Za-z0-9_\$]+\.[A-Za-z0-9_\$]+,[A-Za-z0-9_\$]+\+"
+                                "[A-Za-z0-9_\$]+\([A-Za-z0-9_\$]+,[A-Za-z0-9_\$]+\)\)$",
+                                rpc_js_function[i]
+                            )
+
+                            if func_match is not None:
+                                i += 2
+                                num_of_params = 0
+
+                                param_match = re.search(
+                                    "^" + re.escape(payload_function) + "\([A-Za-z0-9_\$]+\.[A-Za-z0-9_\$]+,([A-Za-z0-9_\$]+)\)",
+                                    rpc_js_function[i]
+                                )
+
+                                if param_match:
+                                    num_of_params = int(get_global_val(param_match.group(1), the_page))
+
+                                for j in range(0, num_of_params):
+                                    i += 1
+
+                                    param_var_match = re.match(
+                                        "^" + re.escape(payload_function) + "\([A-Za-z0-9_\$]+\.[A-Za-z0-9_\$]+,[A-Za-z0-9_\$]+\+"
+                                        "[A-Za-z0-9_\$]+\([A-Za-z0-9_\$]+,([A-Za-z0-9_\$]+)\)\)$",
+                                        rpc_js_function[i]
+                                    )
+
+                                    if param_var_match:
+                                        param = get_global_val(param_var_match.group(1), the_page)
+
+                                        if param is not None:
+                                            methods[-1] = methods[-1] + param + ", "
+                                        else:
+                                            methods[-1] = methods[-1] + "undefined, "
+
+                                if num_of_params > 0:
+                                    a_method = methods[-1][:-2]
+                                else:
+                                    a_method = methods[-1]
+
+                                methods[-1] = a_method + ")"
+
+                                break
+                    else:
+                        methods[-1] += ")"
 
     line_decor = "\n===========================\n"
     print("\n%sEnumerated Methods%s" % (line_decor, line_decor))

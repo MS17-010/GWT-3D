@@ -41,37 +41,37 @@ param_manip_log = []
 
 def replay( burpobj, fuzzified, attackstr, gwtparsed, log ):
     global options
-    
+
     headers = burpobj.get_request_headers()
 
-    if options.cookies is not None:   
+    if options.cookies is not None:
         headers["Cookie"] = options.cookies
-        
+
     headers["Content-Length"] = str(len(fuzzified))
-    
+
     req = urllib2.Request(burpobj.url.geturl(), fuzzified, headers )
-    
+
     handlers = [ urllib2.HTTPHandler() ]
 
-    if options.proxy is not None:    
+    if options.proxy is not None:
         handlers.append( urllib2.ProxyHandler( {'http':options.proxy} ) )
-        
+
     opener = urllib2.build_opener(*handlers)
     urllib2.install_opener( opener )
 
-    errors_found = []    
-    try:    
+    errors_found = []
+    try:
         resp = urllib2.urlopen(req)
         data = resp.read()
-        
+
         # Check for error messages
         errors_found = check_errors(data)
 
-        # Check to see if a exception message was returned        
+        # Check to see if a exception message was returned
         if is_exception(data):
             errors_found.append( "GWT Exception Returned" )
-        
-        # Success        
+
+        # Success
         log.append( { 'method':gwtparsed.rpc_deserialized[2]+"."+gwtparsed.rpc_deserialized[3],
             'request_url':burpobj.url.geturl(),
                             'request_headers':headers,
@@ -81,7 +81,7 @@ def replay( burpobj, fuzzified, attackstr, gwtparsed, log ):
                            'response_content':data,
                            'response_size':len(data),
                            'errors_found':errors_found })
-        
+
     except urllib2.HTTPError, e:
         # Request did not return a 200 OK
         log.append( {'method':gwtparsed.rpc_deserialized[2]+"."+gwtparsed.rpc_deserialized[3],
@@ -104,7 +104,7 @@ def replay( burpobj, fuzzified, attackstr, gwtparsed, log ):
                            'response_content':e.reason(),
                            'response_size':0,
                            'errors_found':errors_found})
-        
+
         print( "Request failed: "+burpobj.url.geturl()+"("+e.reason+")" )
 
 
@@ -138,8 +138,8 @@ def filter_gwt_reqs( parsed ):
         if "Content-Type" in headers:
             if headers["Content-Type"].find("text/x-gwt-rpc") != -1:
                 filtered.append( burpobj )
-            
-    return filtered    
+
+    return filtered
 
 
 def get_number_range( num ):
@@ -147,8 +147,8 @@ def get_number_range( num ):
         return 0, num+options.idrange
 
     begin = int(num)-int(options.idrange)
-    end = int(num)+int(options.idrange) 
-    return begin, end 
+    end = int(num)+int(options.idrange)
+    return begin, end
 
 
 def load_strings( list, filename ):
@@ -158,20 +158,20 @@ def load_strings( list, filename ):
         for line in f:
             if line.find( "# ", 0, 2 ) == -1: # Ignore FuzzDB comments
                 list.append( line.strip() )
-               
+
         f.close()
     else:
         print( "Error: "+filename+" does not exist" )
         exit()
 
-      
+
 def fuzz( burpobj ):
     global options, attacks, attacklog, param_manip_log
 
     # Parse the gwt string
     gwtparsed = GWTParser()
     gwtparsed.deserialize( burpobj.get_request_body() )
-    
+
     gwtlist = burpobj.get_request_body().split('|')
 
     # This is where the magic happens.. Special Thanks to Marcin W.
@@ -190,11 +190,11 @@ def fuzz( burpobj ):
             for i in range( int(begin), int(end) ):
                 fuzzified = "%s|%s|%s" %('|'.join(gwtlist[:idx]), str(i), '|'.join(gwtlist[idx+1:]))
                 replay( burpobj, fuzzified, str(i), gwtparsed, param_manip_log ) #Submit the request
-            
+
 
 def reportfuzz( logdir ):
     global attacklog
-        
+
     f = open( logdir+"//gwtfuzz.html", 'w' )
 
     f.write( '''
@@ -214,7 +214,7 @@ def reportfuzz( logdir ):
             tr.error{
                 background-color: #FFCC66;
             }
-        </style>        
+        </style>
     </head>
     <body>
     <h2>Fuzz Results</h2>
@@ -230,7 +230,7 @@ def reportfuzz( logdir ):
         <th>Resp Content</th>
         <th>Errors Found</th>
     </tr>''' )
-    
+
     for idx, entry in enumerate(attacklog):
         if len(entry['errors_found']) > 0:
             f.write( '<tr class="error">' )
@@ -238,7 +238,7 @@ def reportfuzz( logdir ):
             f.write( '<tr class="error">' )
         else:
             f.write( '<tr>' )
-            
+
         f.write( '<td style="max-width:300px;text-align:right">'+str(idx)+'</td>' +
                  '<td style="max-width:300px;">'+escape(entry['request_url'])+'</td>' +
                  '<td style="max-wdth:300px;">'+escape(entry['method'])+'</td>' +
@@ -250,7 +250,7 @@ def reportfuzz( logdir ):
                 '<td style="max-width:100px;">' )
 
         errorstr = ""
-        
+
         for error in entry['errors_found']:
             errorstr = errorstr + escape(error) + ", "
 
@@ -259,18 +259,18 @@ def reportfuzz( logdir ):
         f.write( errorstr+'</td></tr>' )
 
         # Write the HTTP response into a text file
-        f2 = open( logdir+'//responses/'+str(idx)+'.txt', 'w' ) 
+        f2 = open( logdir+'//responses/'+str(idx)+'.txt', 'w' )
         f2.write( entry['response_content'] )
         f2.close()
-    
+
     f.write( '</table></body></html>' )
     f.close()
 
-    print( "Results saved to "+logdir )    
+    print( "Results saved to "+logdir )
 
 def reportparam( logdir ):
     global param_manip_log
-    
+
     f = open( logdir+"//param_manip.html", 'w' )
 
     f.write( '''
@@ -293,7 +293,7 @@ def reportparam( logdir ):
             tr.error{
                 background-color: #FF3333;
             }
-        </style>        
+        </style>
     </head>
     <body>
     <h2>GWT Parameter Manipulation Results</h2>
@@ -308,8 +308,8 @@ def reportparam( logdir ):
         <th>Resp Size</th>
         <th>Resp Content</th>
     </tr>''' )
-    
-    for idx, entry in enumerate(param_manip_log):     
+
+    for idx, entry in enumerate(param_manip_log):
         f.write( '<tr><td style="max-width:300px;text-align:right">'+str(idx)+'</td>' +
                  '<td style="max-width:300px;">'+escape(entry['request_url'])+'</td>' +
                  '<td style="max-wdth:300px;">'+escape(entry['method'])+'</td>' +
@@ -319,21 +319,21 @@ def reportparam( logdir ):
                '<td style="width=10px;max-width:10px;text-align:right">'+str(entry['response_size'])+'</td>' +
                '<td style="max-width:150px;"><a href="responses/p'+str(idx)+'.txt" target="_new">View Response</a></td></tr>' +
                 '<td style="max-width:100px;">' )
-            
+
         # Write the HTTP response into a text file
-        f2 = open( logdir+'//responses//p'+str(idx)+'.txt', 'w' ) 
+        f2 = open( logdir+'//responses//p'+str(idx)+'.txt', 'w' )
         f2.write( entry['response_content'] )
         f2.close()
-    
-    f.write( '</table></body></html>' )
-    f.close()    
 
-      
+    f.write( '</table></body></html>' )
+    f.close()
+
+
 if __name__ == "__main__":
     global options, attacks, errors
     attacks = []
     errors = []
-    
+
     parser = OptionParser( usage="usage: %prog [options]",
                            description='Automates the fuzzing of GWT RPC requests',
                            version='%prog 0.10' )
@@ -383,10 +383,10 @@ if __name__ == "__main__":
     elif options.idrange is None:
         options.idrange = 100
         print( "ID Range for Parameter Manipulation Testing has been set to 100\n" )
-        
+
     parsed = None
 
-    # Parse the Burp log using the GDS Burp API    
+    # Parse the Burp log using the GDS Burp API
     if os.path.exists( options.burp ):
         print( "Parsing Burp logfile" )
         parsed = parse( options.burp )
@@ -395,7 +395,7 @@ if __name__ == "__main__":
         exit()
 
     logdir = ""
-    
+
     if options.output and os.path.exists( options.output ):
         print( "Error: Output directory already exists." )
         exit()
@@ -412,17 +412,17 @@ if __name__ == "__main__":
 
     if options.errorfile:
         load_strings(errors, options.errorfile)
-        
-    # Filter out the GWT RPC Requests from the log    
+
+    # Filter out the GWT RPC Requests from the log
     filtered = filter_gwt_reqs(parsed)
 
-    print( "Fuzzing has commenced" )    
+    print( "Fuzzing has commenced" )
     # Fuzz each GWT RPC Request
     for burpobj in filtered:
         fuzz( burpobj )
 
     # Generate Parameter Manipulation Report
     reportparam( logdir )
-    
+
     reportfuzz( logdir )
-    
+
