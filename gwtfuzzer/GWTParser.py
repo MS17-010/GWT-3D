@@ -21,8 +21,9 @@
 
 """
 
-import sys
 import re
+import os
+import sys
 import pprint
 from Parameter import Parameter
 
@@ -104,17 +105,18 @@ class GWTParser(object):
     def _set_fuzzable(self, idx, fuzz_value):
         fuzz_idx = int(idx) + 2
 
+        tmp = self.rpc_list_fuzzable[fuzz_idx]
         if self.surround_value:
             if not fuzz_idx in self.fuzzmarked:
                 self.rpc_list_fuzzable[fuzz_idx] = self.surround_value
-                self.rpc_list_fuzzable[fuzz_idx] += self.rpc_list_fuzzable[fuzz_idx]
+                self.rpc_list_fuzzable[fuzz_idx] += tmp
                 self.rpc_list_fuzzable[fuzz_idx] += self.surround_value
         elif self.replace_value:
             self.rpc_list_fuzzable[fuzz_idx] = self.replace_value
         elif self.burp:
             if not fuzz_idx in self.fuzzmarked:
                 self.rpc_list_fuzzable[fuzz_idx] = '§'
-                self.rpc_list_fuzzable[fuzz_idx] += self.rpc_list_fuzzable[fuzz_idx]
+                self.rpc_list_fuzzable[fuzz_idx] += tmp
                 self.rpc_list_fuzzable[fuzz_idx] += '§'
         else:
             self.rpc_list_fuzzable[fuzz_idx] = fuzz_value
@@ -551,9 +553,6 @@ class GWTParser(object):
         elif re.search(b"\xEF\xBF\xBF", bytes(self.rpc_string)) is not None:
             self.rpc_list_fuzzable = self.rpc_string.split(b"\xEF\xBF\xBF")
             self.rpc_list = self.rpc_string.split(b"\xEF\xBF\xBF")
-        else:
-            self.rpc_list_fuzzable = self.rpc_string.split('ï¿¿')
-            self.rpc_list = self.rpc_string.split('ï¿¿')
 
         self.rpc_list_fuzzable.pop()
         self.rpc_list.pop()
@@ -668,15 +667,28 @@ class GWTParser(object):
         except IndexError:
             print("Encountered Error During Parsing")
 
-    def get_fuzzstr(self):
+    def get_fuzzstr(self, origine=False):
         fuzzstr = "|".join(self.rpc_list_fuzzable) + "|"
 
         if self.fout:
             self.fout.write(fuzzstr + "\n")
 
         else:
-            print("\nGWT RPC Payload Fuzz String\n")
-            print(fuzzstr + "\n")
+            print("\nGWT RPC Payload Fuzz String")
+
+            if origine is not False:
+                print("Original request: " + origine)
+
+            if not os.name == 'nt':
+                fuzzstr = re.sub("\|(%[^\|]+|§[^\|]+§|" + ((re.escape(self.surround_value) + "[^\|]+" + re.escape(self.surround_value)) if self.surround_value else re.escape(self.replace_value)) + ")\|", "|\033[91m\\1\033[0m|", fuzzstr)
+
+            print("Fuzzing string: " + fuzzstr)
+
+            if not re.search("%|§|" + ((re.escape(self.surround_value) + "[^\|]+" + re.escape(self.surround_value)) if self.surround_value else re.escape(self.replace_value)), fuzzstr):
+                if not os.name == 'nt':
+                    print("\033[91mNothing to fuzz for this request\n\033[0m")
+            else:
+                print("")
 
     '''
     Prints out the deserialized method call in a user friendly format
