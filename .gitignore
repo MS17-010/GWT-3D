@@ -1,3 +1,4 @@
 *.pyc
 *.log
-gds/
+gds/*
+.idea/*
