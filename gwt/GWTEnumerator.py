@@ -11,10 +11,10 @@ except:
 
 
 class GWTEnum(object):
-    def __init__(self, url, proxy, basicauth, cookies, verbose, debug):
+    def __init__(self, url, proxy, basic_auth, cookies, verbose, debug):
         self.url = url
         self.proxy = proxy
-        self.basicauth = basicauth
+        self.basic_auth = basic_auth
         self.cookies = cookies
         self.verbose = verbose
         self.debug = debug
@@ -68,7 +68,7 @@ class GWTEnum(object):
         opener = urllib.build_opener(*handlers)
         urllib.install_opener(opener)
 
-        if self.basicauth is True and self.basic_auth_encoded is None:
+        if self.basic_auth is True and self.basic_auth_encoded is None:
             try:
                 username = input("Basic auth username: ")
             except:
@@ -190,9 +190,7 @@ class GWTEnum(object):
 
                                 number_of_param = self._get_param_number(payload_function, js_function)
                                 self._set_param_definition(number_of_param, payload_function)
-                                # print("before", self.methods[-1])
                                 self.methods[-1] = self.methods[-1][:-2] + ")"
-                                # print("after", self.methods[-1])
 
                                 break
                     else:
@@ -220,14 +218,12 @@ class GWTEnum(object):
                                     self._set_param_definition(number_of_param, payload_function)
 
 
-                                    # print("before", self.methods[-1])
                                     if number_of_param > 0:
                                         a_method = self.methods[-1][:-2]
                                     else:
                                         a_method = self.methods[-1]
 
                                     self.methods[-1] = a_method + ")"
-                                    # print("after", self.methods[-1])
 
                                     break
                         else:
@@ -236,9 +232,5 @@ class GWTEnum(object):
     def display(self):
         methods = sorted(list(set(self.methods)))
 
-        print("\n===========================\nEnumerated Methods\n===========================\n")
         for method in methods:
             print(method)
-
-        print("\n\n")
-

@@ -3,8 +3,8 @@
 
 
 import argparse
+import gwt.GWTRequest
 import gwt.GWTEnumerator
-import gwt.GWTRequestParser
 
 
 if __name__ == "__main__":
@@ -39,12 +39,15 @@ if __name__ == "__main__":
                         help="Human readable formatting of the request", action="store_true")
     decode.add_argument("-o", "--output", default="stdout",
                         help="File were to store all parsed requests (default \"stdout\")", action="store")
+    decode.add_argument("-m", "--methods",
+                        help="You can specify a file were all Java methods are enumerated (line separated)."
+                        "This file can be obtained by running the \"enum\" script", action="store")
 
     args = parser.parse_args([
         '--verbose',
-        "enum",
-        "-u", "https://cdc.keepeek.com/com.keepeek.kpk360.Keepeek360.nocache.js?3790",
-        "-p", "http://localhost:8090",
+        "decode",
+        "-i", "https://cdc.keepeek.com/com.keepeek.kpk360.Keepeek360.nocache.js?3790",
+        "-m", "/home/miaouplop/Documents/Travail/pentest/cdc/3/available_methods.txt",
     ])
     verbose = args.verbose
     debug = args.debug
@@ -66,7 +69,9 @@ if __name__ == "__main__":
         pretty = args.pretty
         replace = args.replace
         surround = args.surround
+        methods = args.methods
 
-        gwt_req_parser = gwt.GWTRequestParser.GWTReqParser(user_input, output, burp, pretty, replace, surround, verbose, debug)
+        gwt_req_parser = gwt.GWTRequest.GWTReq(verbose, debug)
+        gwt_req_parser.parse(user_input, output, pretty, burp, replace, surround, methods)
     else:
         parser.parse_args(["--help"])
