@@ -29,6 +29,8 @@ if __name__ == "__main__":
     enum.add_argument("-p", "--proxy", help="Proxy host and port (i.e.: \"http://localhost:8080\")")
     enum.add_argument("-b", "--basicauth", help="Basic authentication credentials")
     enum.add_argument("-c", "--cookies", help="Cookies to use to get the JS files")
+    enum.add_argument("-o", "--output", default="stdout",
+                        help="Absolute path were to store all parsed requests (default \"stdout\")", action="store")
 
     decode.add_argument("-i", "--input", help="The RPC request payload or Burp log file", action="store", required=True)
     decode.add_argument("-s", "--surround", help="Surrounds fuzzable parameters by a given string", action="store")
@@ -52,11 +54,12 @@ if __name__ == "__main__":
 
     if subparser_name in ['enum', 'en', 'e']:
         url = args.url
+        output = args.output
         proxy = args.proxy
         basicauth = args.basicauth
         cookies = args.cookies
 
-        gwt_enum = gwt.GWTEnumerator.GWTEnum(url, proxy, basicauth, cookies, verbose, debug)
+        gwt_enum = gwt.GWTEnumerator.GWTEnum(url, output, proxy, basicauth, cookies, verbose, debug)
         gwt_enum.enum()
         gwt_enum.display()
     elif subparser_name in ['decode', 'de', 'dcd', 'dec', 'd']:

@@ -11,8 +11,9 @@ except:
 
 
 class GWTEnum(object):
-    def __init__(self, url, proxy, basic_auth, cookies, verbose, debug):
+    def __init__(self, url, output, proxy, basic_auth, cookies, verbose, debug):
         self.url = url
+        self.output = output
         self.proxy = proxy
         self.basic_auth = basic_auth
         self.cookies = cookies

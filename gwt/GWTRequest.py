@@ -107,7 +107,7 @@ class GWTReq(object):
             if (self.fuzz is True and fuzzable is True) or self.fuzz is not True:
                 self._to_display += fuzzstr + "\n"
 
-        if self.fuzz is not True:
+        if self.fuzz is not True and fuzzable is False:
             if not os.name == 'nt' and self.output == "stdout":
                 self._to_display += "\033[91mNothing to fuzz for this request\033[0m\n"
             else:
