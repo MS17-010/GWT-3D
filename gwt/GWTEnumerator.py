@@ -244,7 +244,7 @@ class GWTEnum(object):
             sys.stdout.write(out)
             sys.stdout.flush()
         else:
-            with open(self.output, "wb") as f:
+            with open(self.output, "w") as f:
                 f.write(out)
 
             if not os.name == 'nt':
