@@ -42,6 +42,8 @@ if __name__ == "__main__":
     decode.add_argument("-m", "--methods",
                         help="You can specify a file were all Java methods are enumerated (line separated)."
                         "This file can be obtained by running the \"enum\" script", action="store")
+    decode.add_argument("-f", "--fuzz",
+                        help="Outputs only fuzzable strings", action="store_true")
 
     args = parser.parse_args()
     verbose = args.verbose
@@ -61,12 +63,14 @@ if __name__ == "__main__":
         user_input = args.input
         burp = args.burp
         output = args.output
+        fuzz = args.fuzz
         pretty = args.pretty
         replace = args.replace
         surround = args.surround
         methods = args.methods
 
-        gwt_req_parser = gwt.GWTRequest.GWTReq(user_input, output, pretty, burp, replace, surround, methods, verbose, debug)
+        gwt_req_parser = gwt.GWTRequest.GWTReq(user_input, output, fuzz, pretty,
+                                               burp, replace, surround, methods, verbose, debug)
         gwt_req_parser.parse()
     else:
         parser.parse_args(["--help"])

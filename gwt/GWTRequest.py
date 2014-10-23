@@ -8,9 +8,10 @@ import gwt.GWTRequestParser
 
 
 class GWTReq(object):
-    def __init__(self, user_input, output, pretty, burp, replace, surround, methods, verbose, debug):
+    def __init__(self, user_input, output, fuzz, pretty, burp, replace, surround, methods, verbose, debug):
         self.user_input = user_input
         self.output = output
+        self.fuzz = fuzz
         self.pretty = pretty
         self.burp = burp
         self.replace = replace
@@ -82,26 +83,37 @@ class GWTReq(object):
 
     def _fuzz(self):
         fuzzstr = self._parser.get_fuzzstr()
-        if not os.name == 'nt' and self.output == "stdout":
-            self._to_display += "\033[4mResulting fuzzing string:\033[0m\n"
-            self._to_display += re.sub("(%[a-z]+|§[^§]+§" +
-                                       ((re.escape(self.surround) + "[^"+ re.escape(self.surround) +
-                                         "]+" + re.escape(self.surround)) if self.surround else
-                                        re.escape(self.replace) if self.replace else "") +
-                                       ")", "\033[91m\\1\033[0m", fuzzstr) + "\n"
-        else:
-            self._to_display += "Resulting fuzzing string:\n"
-            self._to_display += fuzzstr + "\n"
 
+        fuzzable = True
         if not re.search("%|§" + ("|" + (re.escape(self.surround) + "[^\|]+" +
                                          re.escape(self.surround)) if self.surround else
                                   "|" + re.escape(self.replace) if self.replace else ""), fuzzstr):
+            fuzzable = False
+
+        if not os.name == 'nt' and self.output == "stdout":
+            if self.fuzz is not True:
+                self._to_display += "\033[4mResulting fuzzing string:\033[0m\n"
+
+            if (self.fuzz is True and fuzzable is True) or self.fuzz is not True:
+                self._to_display += re.sub("(%[a-z]+|§[^§]+§" +
+                                           ((re.escape(self.surround) + "[^"+ re.escape(self.surround) +
+                                             "]+" + re.escape(self.surround)) if self.surround else
+                                            re.escape(self.replace) if self.replace else "") +
+                                           ")", "\033[91m\\1\033[0m", fuzzstr) + "\n"
+        else:
+            if self.fuzz is not True:
+                self._to_display += "Resulting fuzzing string:\n"
+
+            if (self.fuzz is True and fuzzable is True) or self.fuzz is not True:
+                self._to_display += fuzzstr + "\n"
+
+        if self.fuzz is not True:
             if not os.name == 'nt' and self.output == "stdout":
                 self._to_display += "\033[91mNothing to fuzz for this request\033[0m\n"
             else:
                 self._to_display += "Nothing to fuzz for this request\n"
 
-        self._to_display += "\n"
+            self._to_display += "\n"
 
     def parse(self):
         is_file = False
@@ -133,11 +145,12 @@ class GWTReq(object):
             else:
                 original_request = request
 
-            if not os.name == 'nt' and self.output == "stdout":
-                self._to_display += "\033[4mOriginal request:\033[0m\n"
-            else:
-                self._to_display += "Original request:\n"
-            self._to_display += original_request + "\n"
+            if self.fuzz is not True:
+                if not os.name == 'nt' and self.output == "stdout":
+                    self._to_display += "\033[4mOriginal request:\033[0m\n"
+                else:
+                    self._to_display += "Original request:\n"
+                self._to_display += original_request + "\n"
 
             try:
                 deserialized = self._parser.deserialize(request)
@@ -150,14 +163,15 @@ class GWTReq(object):
                 if self.pretty is True:
                     self._pretty(deserialized)
                 else:
-                    if len(self._methods_lookup) > 0:
-                        method_call = self._get_method_and_params(deserialized)
+                    if self.fuzz is not True:
+                        if len(self._methods_lookup) > 0:
+                            method_call = self._get_method_and_params(deserialized)
 
-                        if not os.name == 'nt' and self.output == "stdout":
-                            self._to_display += "\033[4mEquivalent Java method call:\033[0m\n"
-                        else:
-                            self._to_display += "Equivalent Java method call:\n"
-                        self._to_display += self._method_call_to_string(method_call) + "\n"
+                            if not os.name == 'nt' and self.output == "stdout":
+                                self._to_display += "\033[4mEquivalent Java method call:\033[0m\n"
+                            else:
+                                self._to_display += "Equivalent Java method call:\n"
+                            self._to_display += self._method_call_to_string(method_call) + "\n"
 
                 self._fuzz()
 

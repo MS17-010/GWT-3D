@@ -548,7 +548,6 @@ class GWTReqParser(object):
         # This copy is used to keep track of fuzzable values
         self.rpc_list_fuzzable = self.rpc_string.split('|')
         self.rpc_list = self.rpc_string.split('|')
-        # print(self.rpc_string)
 
         self.rpc_list_fuzzable.pop()
         self.rpc_list.pop()
