@@ -122,17 +122,24 @@ class GWTReq(object):
             with open(self.user_input) as f:
                 content = f.read()
 
-            if content.find(b"\xEF\xBF\xBF".decode()) > -1:
-                self._is_pipe_used = False
+            try:
+                if content.find(b"\xEF\xBF\xBF".decode()) > -1:
+                    self._is_pipe_used = False
+            except UnicodeDecodeError:
+                if content.find(b"\xEF\xBF\xBF") > -1:
+                    self._is_pipe_used = False
 
-            unhex = str(bytes(content.encode()).replace(b"\xEF\xBF\xBF", b"|").decode())
+            try:
+                unhex = str(bytes(content.encode()).replace(b"\xEF\xBF\xBF", b"|").decode())
+            except UnicodeDecodeError:
+                unhex = content.replace(b"\xEF\xBF\xBF", "|")
         else:
             content = self.user_input
 
-            if content.find("\xEF\xBF\xBF") > -1:
+            if content.find("ï¿¿") > -1:
                 self._is_pipe_used = False
 
-            unhex = content.replace("\xEF\xBF\xBF", "|")
+            unhex = content.replace("ï¿¿", "|")
 
         if is_file is True:
             requests_to_parse = [a[0] for a in re.findall("\n([\d]+\|[\d]+(.*?)\|[\d]+\|)\r?\n", unhex)]
@@ -141,7 +148,7 @@ class GWTReq(object):
 
         for request in requests_to_parse:
             if self._is_pipe_used is False:
-                original_request = request.replace("|", "\xEF\xBF\xBF")
+                original_request = request.replace("|", "ï¿¿")
             else:
                 original_request = request
 
