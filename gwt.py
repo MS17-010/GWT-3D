@@ -43,12 +43,7 @@ if __name__ == "__main__":
                         help="You can specify a file were all Java methods are enumerated (line separated)."
                         "This file can be obtained by running the \"enum\" script", action="store")
 
-    args = parser.parse_args([
-        '--verbose',
-        "decode",
-        "-i", "https://cdc.keepeek.com/com.keepeek.kpk360.Keepeek360.nocache.js?3790",
-        "-m", "/home/miaouplop/Documents/Travail/pentest/cdc/3/available_methods.txt",
-    ])
+    args = parser.parse_args()
     verbose = args.verbose
     debug = args.debug
     subparser_name = args.subparser_name
@@ -71,7 +66,7 @@ if __name__ == "__main__":
         surround = args.surround
         methods = args.methods
 
-        gwt_req_parser = gwt.GWTRequest.GWTReq(verbose, debug)
-        gwt_req_parser.parse(user_input, output, pretty, burp, replace, surround, methods)
+        gwt_req_parser = gwt.GWTRequest.GWTReq(user_input, output, pretty, burp, replace, surround, methods, verbose, debug)
+        gwt_req_parser.parse()
     else:
         parser.parse_args(["--help"])
