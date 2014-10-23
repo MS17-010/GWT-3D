@@ -38,7 +38,7 @@ if __name__ == "__main__":
     decode.add_argument("-p", "--pretty", default=False,
                         help="Human readable formatting of the request", action="store_true")
     decode.add_argument("-o", "--output", default="stdout",
-                        help="File were to store all parsed requests (default \"stdout\")", action="store")
+                        help="Absolute path were to store all parsed requests (default \"stdout\")", action="store")
     decode.add_argument("-m", "--methods",
                         help="You can specify a file were all Java methods are enumerated (line separated)."
                         "This file can be obtained by running the \"enum\" script", action="store")

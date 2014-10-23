@@ -21,7 +21,6 @@ class GWTReq(object):
         self._parser = gwt.GWTRequestParser.GWTReqParser(burp, replace, surround, verbose, debug)
         self._is_pipe_used = True
         self._methods_lookup = dict()
-        self._deserialized = dict()
         self._re_class_name = re.compile("([\w]+)\.[\w]+\(", re.I)
         self._re_method_name = re.compile("\.([\w]+)\(", re.I)
         self._to_display = "\n"
@@ -76,9 +75,14 @@ class GWTReq(object):
             with open(self.output, "w") as f:
                 f.write(self._to_display)
 
+            if not os.name == 'nt':
+                print("Output saved to \033[91m" + self.output + "\033[0m\n")
+            else:
+                print("Output saved to " + self.output + "\n")
+
     def _fuzz(self):
         fuzzstr = self._parser.get_fuzzstr()
-        if not os.name == 'nt':
+        if not os.name == 'nt' and self.output == "stdout":
             self._to_display += "\033[4mResulting fuzzing string:\033[0m\n"
             self._to_display += re.sub("(%[a-z]+|§[^§]+§" +
                                        ((re.escape(self.surround) + "[^"+ re.escape(self.surround) +
@@ -92,7 +96,7 @@ class GWTReq(object):
         if not re.search("%|§" + ("|" + (re.escape(self.surround) + "[^\|]+" +
                                          re.escape(self.surround)) if self.surround else
                                   "|" + re.escape(self.replace) if self.replace else ""), fuzzstr):
-            if not os.name == 'nt':
+            if not os.name == 'nt' and self.output == "stdout":
                 self._to_display += "\033[91mNothing to fuzz for this request\033[0m\n"
             else:
                 self._to_display += "Nothing to fuzz for this request\n"
@@ -105,17 +109,21 @@ class GWTReq(object):
             is_file = True
             with open(self.user_input) as f:
                 content = f.read()
+
+            if content.find(b"\xEF\xBF\xBF".decode()) > -1:
+                self._is_pipe_used = False
+
+            unhex = str(bytes(content.encode()).replace(b"\xEF\xBF\xBF", b"|").decode())
         else:
             content = self.user_input
 
-        if content.find("\xEF\xBF\xBF"):
-            self._is_pipe_used = False
+            if content.find("\xEF\xBF\xBF") > -1:
+                self._is_pipe_used = False
 
-
-        unhex = content.replace("\xEF\xBF\xBF", "|")
+            unhex = content.replace("\xEF\xBF\xBF", "|")
 
         if is_file is True:
-            requests_to_parse = [a[0] for a in re.findall("\n([\d]+\|[\d]+(.*?)\|[\d]+\|)\n", unhex)]
+            requests_to_parse = [a[0] for a in re.findall("\n([\d]+\|[\d]+(.*?)\|[\d]+\|)\r?\n", unhex)]
         else:
             requests_to_parse = [unhex]
 
@@ -125,24 +133,32 @@ class GWTReq(object):
             else:
                 original_request = request
 
-            if not os.name == 'nt':
+            if not os.name == 'nt' and self.output == "stdout":
                 self._to_display += "\033[4mOriginal request:\033[0m\n"
             else:
                 self._to_display += "Original request:\n"
             self._to_display += original_request + "\n"
 
-            self._deserialized = self._parser.deserialize(request)
-            if self.pretty is True:
-                self._pretty(self._deserialized)
+            try:
+                deserialized = self._parser.deserialize(request)
+            except IndexError:
+                if not os.name == 'nt':
+                    print("\033[4mEncountered Error During Parsing with request:\033[0m\n" + request + "\n")
+                else:
+                    print("Encountered Error During Parsing with request:\n" + request + "\n")
             else:
-                method_call = self._get_method_and_params(self._deserialized)
-                if len(self._methods_lookup) > 0:
-                    if not os.name == 'nt':
-                        self._to_display += "\033[4mEquivalent Java method call:\033[0m\n"
-                    else:
-                        self._to_display += "Equivalent Java method call:\n"
-                    self._to_display += self._method_call_to_string(method_call) + "\n"
+                if self.pretty is True:
+                    self._pretty(deserialized)
+                else:
+                    if len(self._methods_lookup) > 0:
+                        method_call = self._get_method_and_params(deserialized)
 
-            self._fuzz()
+                        if not os.name == 'nt' and self.output == "stdout":
+                            self._to_display += "\033[4mEquivalent Java method call:\033[0m\n"
+                        else:
+                            self._to_display += "Equivalent Java method call:\n"
+                        self._to_display += self._method_call_to_string(method_call) + "\n"
+
+                self._fuzz()
 
         self._out()

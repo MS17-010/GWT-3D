@@ -546,12 +546,9 @@ class GWTReqParser(object):
     '''
     def _read_string_into_list(self):
         # This copy is used to keep track of fuzzable values
-        if "|" in self.rpc_string:
-            self.rpc_list_fuzzable = self.rpc_string.split('|')
-            self.rpc_list = self.rpc_string.split('|')
-        elif re.search(b"\xEF\xBF\xBF", bytes(self.rpc_string)) is not None:
-            self.rpc_list_fuzzable = self.rpc_string.split(b"\xEF\xBF\xBF")
-            self.rpc_list = self.rpc_string.split(b"\xEF\xBF\xBF")
+        self.rpc_list_fuzzable = self.rpc_string.split('|')
+        self.rpc_list = self.rpc_string.split('|')
+        # print(self.rpc_string)
 
         self.rpc_list_fuzzable.pop()
         self.rpc_list.pop()
@@ -664,8 +661,7 @@ class GWTReqParser(object):
         try:
             self._parse()
         except IndexError:
-            print("Encountered Error During Parsing")
-            exit()
+            raise IndexError
         else:
             return {"class": self.rpc_deserialized[2], "method": self.rpc_deserialized[3],
                     "nb": len(self.parameters), "params": [p.values[0] for p in self.parameters]}
