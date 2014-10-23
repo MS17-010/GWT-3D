@@ -2,6 +2,8 @@
 
 
 import re
+import os
+import sys
 import base64
 import getpass
 try:
@@ -141,6 +143,7 @@ class GWTEnum(object):
                     self.methods[-1] += "undefined, "
 
     def enum(self):
+        print("This can take a very long time (like 3-4mn)")
         self.content = self._request_file(self.url).read().decode()
         self._find_html_files()
 
@@ -233,5 +236,18 @@ class GWTEnum(object):
     def display(self):
         methods = sorted(list(set(self.methods)))
 
+        out = ""
         for method in methods:
-            print(method)
+            out += method + "\n"
+
+        if self.output == "stdout":
+            sys.stdout.write(out)
+            sys.stdout.flush()
+        else:
+            with open(self.output, "wb") as f:
+                f.write(out)
+
+            if not os.name == 'nt':
+                print("Output saved to \033[91m" + self.output + "\033[0m\n")
+            else:
+                print("Output saved to " + self.output + "\n")
