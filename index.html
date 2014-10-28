@@ -203,7 +203,7 @@ optional arguments:
                     <div class="highlight">
                         <pre>
                             <code class="bash">
-$ python3 gwt.py enum -u "https://cdc.keepeek.com/com.keepeek.kpk360.Keepeek360.nocache.js?3790"
+$ python3 gwt.py enum -u "https://site.com/plop.nocache.js?3790"
 This can take a very long time (like 3-4mn)
 AppletImportRpc.getAppletProperties()
 AppletImportRpc.getJavascriptProperties()
@@ -214,15 +214,19 @@ UserRpc.setNewPwd(java.lang.Integer, java.lang.String, java.lang.String, java.la
 UserRpc.storeMetamodelForImport(com.keepeek.kpk360.client.transport.media.CustomMetamodelTransport)
                             </code>
                         </pre>
+
+                        <p>This enumerates Java methods from the JS file given in parameter and outputs results on stdout.</p>
                     </div>
                     <div class="highlight">
                         <pre>
                             <code class="bash">
-$ python3 gwt.py enum -u "https://cdc.keepeek.com/com.keepeek.kpk360.Keepeek360.nocache.js?3790" -o test.txt
+$ python3 gwt.py enum -u "https://site.com/plop.nocache.js?3790" -o test.txt
 This can take a very long time (like 3-4mn)
 Output saved to test.txt
                             </code>
                         </pre>
+
+                        <p>This enumerates Java methods from the JS file given in parameter and outputs results in the file specified.</p>
                     </div>
                 </div>
             </div>
