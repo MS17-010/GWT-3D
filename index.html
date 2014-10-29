@@ -1,148 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
 
-<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+        <title>GWT-3D</title>
 
-    <title>GWT-3D</title>
+        <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
+        <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
-    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link href="stylesheets/freelancer.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link href="stylesheets/freelancer.css" rel="stylesheet">
+        <!-- Custom Fonts -->
+        <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+        <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
-    <!-- Custom Fonts -->
-    <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <body id="page-top" class="index">
 
-</head>
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header page-scroll">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#page-top">GWT-3D</a>
+                </div>
 
-<body id="page-top" class="index">
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="hidden">
+                            <a href="#page-top"></a>
+                        </li>
+                        <li class="page-scroll">
+                            <a href="#about">About</a>
+                        </li>
+                        <li class="page-scroll">
+                            <a href="#howto">Howto</a>
+                        </li>
+                        <li class="page-scroll">
+                            <a href="#futur">Futur</a>
+                        </li>
+                        <li class="page-scroll">
+                            <a href="#contact">Contact</a>
+                        </li>
+                        <li class="page-scroll">
+                            <a href="#">Download</a>
+                        </li>
+                        <li class="page-scroll">
+                            <a href="https://github.com/miaouPlop/GWT-Penetration-Testing-Toolset/fork" target="_blank">Fork</a>
+                        </li>
+                    </ul>
+                </div> <!-- /.navbar-collapse -->
+            </div> <!-- /.container-fluid -->
+        </nav>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#page-top">GWT-3D</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="hidden">
-                        <a href="#page-top"></a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="#about">About</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="#howto">Howto</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="#futur">Futur</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="#contact">Contact</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="#">Download</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="https://github.com/miaouPlop/GWT-Penetration-Testing-Toolset/fork" target="_blank">Fork</a>
-                    </li>
-                </ul>
-            </div> <!-- /.navbar-collapse -->
-        </div> <!-- /.container-fluid -->
-    </nav>
-
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <img class="img-responsive" src="img/logo_450.png" alt="">
-                    <div class="intro-text">
-                        <span class="name">GWT-3D</span>
-                        <hr class="star-light">
-                        <span class="skills">Discover, Decode, Destroy</span>
+        <!-- Header -->
+        <header>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <img class="img-responsive" src="img/logo_450.png" alt="">
+                        <div class="intro-text">
+                            <span class="name">GWT-3D</span>
+                            <hr class="star-light">
+                            <span class="skills">Discover, Decode, Destroy</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <!-- Portfolio Grid Section -->
-    <section id="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>About</h2>
-                    <hr class="star-primary">
+        <!-- Portfolio Grid Section -->
+        <section id="about">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2>About</h2>
+                        <hr class="star-primary">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <p>
+                            GWT Penetration Testing Toolkit originale version is from <a href="https://github.com/GDSSecurity/GWT-Penetration-Testing-Toolset" target="_blank">GDSSecurity</a>.<br>
+                            It is "a set of tools made to assist in penetration testing GWT applications". The last update on this tool is from years ago. But GWT has updated since then and the tool doesn't work anymore. That's where this one comes.
+                        </p>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <p>It is a new version of the tool that uses the same parsing algorithm as before but updated thanks to how GWT creates requests now. It also has new options and usability has been improved a lot. A lot of bugs from the previous versions are now fixed. Moreover it is usable with Python 2 and Python 3 (however, the documentation will use Python 3)!</p>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <p>There are two types of usage for the tools: enumerate Java (server side) methods and parameters and/or decode GWT requests to have a better understanding of how it works and to create fuzzing strings.</p>
+                    </div>
+
+                    <div class="col-lg-8 col-lg-offset-2 text-center">
+                        <a href="#" class="btn btn-lg btn-success">
+                            <i class="fa fa-github  "></i> Download lastest release
+                        </a>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <div class="row">
-                <div class="col-lg-4">
-                    <p>
-                        GWT Penetration Testing Toolkit originale version is from <a href="https://github.com/GDSSecurity/GWT-Penetration-Testing-Toolset" target="_blank">GDSSecurity</a>.<br>
-                        It is "a set of tools made to assist in penetration testing GWT applications". The last update on this tool is from years ago. But GWT has updated since then and the tool doesn't work anymore. That's where this one comes.
-                    </p>
+        <!-- About Section -->
+        <section class="success" id="howto">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2>Howto</h2>
+                        <hr class="star-light">
+                    </div>
                 </div>
 
-                <div class="col-lg-4">
-                    <p>It is a new version of the tool that uses the same parsing algorithm as before but updated thanks to how GWT creates requests now. It also has new options and usability has been improved a lot. A lot of bugs from the previous versions are now fixed. Moreover it is usable with Python 2 and Python 3 (however, the documentation will use Python 3)!</p>
-                </div>
-
-                <div class="col-lg-4">
-                    <p>There are two types of usage for the tools: enumerate Java (server side) methods and parameters and/or decode GWT requests to have a better understanding of how it works and to create fuzzing strings.</p>
-                </div>
-
-                <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <a href="#" class="btn btn-lg btn-success">
-                        <i class="fa fa-github  "></i> Download lastest release
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="success" id="howto">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>Howto</h2>
-                    <hr class="star-light">
-                </div>
-            </div>
-
-            <div class="row">
-                <div>
-                    <p><h3>Program help</h3></p>
-                    <div class="highlight">
-                        <pre>
-                            <code class="bash">
+                <div class="row">
+                    <div>
+                        <p><h3>Program help</h3></p>
+                        <div class="highlight">
+                            <pre>
+                                <code class="bash">
 $ <span class="command">python3 gwt.py --help</span>
 usage: gwt.py [-h] [--verbose] [--debug] {enum,en,e,decode,de,dcd,dec,d} ...
 
@@ -162,25 +160,25 @@ Actions:
                         parameters
     decode (de, dcd, dec, d)
                         Decodes a [set of] GWT RPC request(s)
-                            </code>
-                        </pre>
+                                </code>
+                            </pre>
+                        </div>
+                    </div>
+                    <div>
+                        <p>You have the possibility to use to different "actions": enum (aliases: en, e) or decode (aliases d, de, dcd, dec).<br>
+                        The first one enumerates all Java (server side) methods with their params (if found) and the second one decodes one or more GWT requests
+                        and shows fuzzable parts of the payload.</p>
                     </div>
                 </div>
-                <div>
-                    <p>You have the possibility to use to different "actions": enum (aliases: en, e) or decode (aliases d, de, dcd, dec).<br>
-                    The first one enumerates all Java (server side) methods with their params (if found) and the second one decodes one or more GWT requests
-                    and shows fuzzable parts of the payload.</p>
-                </div>
-            </div>
 
-            <br>
+                <br>
 
-            <div class="row">
-                <div>
-                    <p><h3>Method enumeration</h3></p>
-                    <div class="highlight">
-                        <pre>
-                            <code class="bash">
+                <div class="row">
+                    <div>
+                        <p><h3>Method enumeration</h3></p>
+                        <div class="highlight">
+                            <pre>
+                                <code class="bash">
 $ <span class="command">python3 gwt.py enum --help</span>
 usage: gwt.py enum [-h] -u URL [-p PROXY] [-b BASICAUTH] [-c COOKIES]
                    [-o OUTPUT]
@@ -199,24 +197,24 @@ optional arguments:
   -o OUTPUT, --output OUTPUT
                         Absolute path were to store all parsed requests
                         (default "stdout")
-                            </code>
-                        </pre>
+                                </code>
+                            </pre>
+                        </div>
                     </div>
-                </div>
 
-                <div>
-                    <p>This action can help you to enumerate Java methods and parameters. To do so, you have to give the script the URL to a "nocache.js" file. This file is a particular GWT JS file that helps get other JS files from server cache. By using some tricks, an unauthenticated user can enumerate all server methods.<br>
-                    If needed, you can set up a bunch of options like a proxy, some cookies to use with the request and basic authentication (you will be prompted for credentials during the execution of the script).
-                    The last option is to use a different output than the default one (stdout). You can specify a file (that will be created if doesn't exist) and then everything will be saved in there!</p>
-                </div>
+                    <div>
+                        <p>This action can help you to enumerate Java methods and parameters. To do so, you have to give the script the URL to a "nocache.js" file. This file is a particular GWT JS file that helps get other JS files from server cache. By using some tricks, an unauthenticated user can enumerate all server methods.<br>
+                        If needed, you can set up a bunch of options like a proxy, some cookies to use with the request and basic authentication (you will be prompted for credentials during the execution of the script).
+                        The last option is to use a different output than the default one (stdout). You can specify a file (that will be created if doesn't exist) and then everything will be saved in there!</p>
+                    </div>
 
-                <br>
+                    <br>
 
-                <div>
-                    <p><h4>Examples</h4></p>
-                    <div class="highlight">
-                        <pre>
-                            <code class="bash">
+                    <div>
+                        <p><h4>Examples</h4></p>
+                        <div class="highlight">
+                            <pre>
+                                <code class="bash">
 $ <span class="command">python3 gwt.py enum -u "https://site.com/plop.nocache.js?3790"</span>
 This can take a very long time (like 3-4mn)
 AppletImportRpc.getAppletProperties()
@@ -226,36 +224,36 @@ AuthorizationRpc.getAuthorizations()
 UserRpc.setNewPwd(java.lang.Integer, java.lang.String, java.lang.String)
 UserRpc.setNewPwd(java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)
 UserRpc.storeMetamodelForImport(com.site.client.transport.media.CustomMetamodelTransport)
-                            </code>
-                        </pre>
-                    </div>
+                                </code>
+                            </pre>
+                        </div>
 
-                    <p>This enumerates Java methods from the JS file given in parameter and outputs results on stdout.</p>
-                    <br>
+                        <p>This enumerates Java methods from the JS file given in parameter and outputs results on stdout.</p>
+                        <br>
 
-                    <div class="highlight">
-                        <pre>
-                            <code class="bash">
+                        <div class="highlight">
+                            <pre>
+                                <code class="bash">
 $ <span class="command">python3 gwt.py enum -u "https://site.com/plop.nocache.js?3790" -o test.txt</span>
 This can take a very long time (like 3-4mn)
 Output saved to test.txt
-                            </code>
-                        </pre>
+                                </code>
+                            </pre>
 
+                        </div>
+
+                        <p>This enumerates Java methods from the JS file given in parameter and outputs results in the file specified.</p>
                     </div>
-
-                    <p>This enumerates Java methods from the JS file given in parameter and outputs results in the file specified.</p>
                 </div>
-            </div>
 
-            <br>
+                <br>
 
-            <div class="row">
-                <div>
-                    <p><h3>Request parsing</h3></p>
-                    <div class="highlight">
-                        <pre>
-                            <code class="bash">
+                <div class="row">
+                    <div>
+                        <p><h3>Request parsing</h3></p>
+                        <div class="highlight">
+                            <pre>
+                                <code class="bash">
 $ <span class="command">python3 gwt.py decode --help</span>
 usage: gwt.py decode [-h] -i INPUT [-s SURROUND] [-r REPLACE] [-b] [-p]
                      [-o OUTPUT] [-m METHODS] [-f]
@@ -281,41 +279,41 @@ optional arguments:
                         enumerated (line separated).This file can be obtained
                         by running the "enum" script
   -f, --fuzz            Outputs only fuzzable strings
-                            </code>
-                        </pre>
+                                </code>
+                            </pre>
+                        </div>
                     </div>
-                </div>
 
-                <div>
-                    <p>Ths action can help you understand GWT RPC requests made by the application you're auditing. It can also help to know which parameters are fuzzable in a request. This action can work on a single request or on a Burp proxy log, for example. Then, using some options, you can configure fuzzing settings to suit your needs.<br>
-                    As for the enum action, you can specify an output file or use stdout.
+                    <div>
+                        <p>Ths action can help you understand GWT RPC requests made by the application you're auditing. It can also help to know which parameters are fuzzable in a request. This action can work on a single request or on a Burp proxy log, for example. Then, using some options, you can configure fuzzing settings to suit your needs.<br>
+                        As for the enum action, you can specify an output file or use stdout.
+                        <br>
+                        <i>Note &mdash; the -p/--pretty switch is not yet implemented, it will be in next versions.</i></p>
+                    </div>
+
                     <br>
-                    <i>Note &mdash; the -p/--pretty switch is not yet implemented, it will be in next versions.</i></p>
-                </div>
 
-                <br>
-
-                <div>
-                    <p><h4>Examples</h4></p>
-                    <div class="highlight">
-                        <pre>
-                            <code class="bash">
+                    <div>
+                        <p><h4>Examples</h4></p>
+                        <div class="highlight">
+                            <pre>
+                                <code class="bash">
 $ <span class="command">python3 gwt.py decode -i "4ï¿¿0ï¿¿6ï¿¿https://site.com/ï¿¿C33C748610876DA5ACE277F0EA893A44ï¿¿com.site.client.rpc.MediaRpcï¿¿getMediaHiresHttpPathï¿¿java.lang.Integerï¿¿java.lang.Integer/3438268394ï¿¿1ï¿¿2ï¿¿3ï¿¿4ï¿¿1ï¿¿5ï¿¿6ï¿¿123ï¿¿"</span>
 
 <span class="command-underline">Original request:</span>
 4ï¿¿0ï¿¿6ï¿¿https://site.com/ï¿¿C33C748610876DA5ACE277F0EA893A44ï¿¿com.site.client.rpc.MediaRpcï¿¿getMediaHiresHttpPathï¿¿java.lang.Integerï¿¿java.lang.Integer/3438268394ï¿¿1ï¿¿2ï¿¿3ï¿¿4ï¿¿1ï¿¿5ï¿¿6ï¿¿123ï¿¿
 <span class="command-underline">Resulting fuzzing string:</span>
 4|0|6|https://site.com/|C33C748610876DA5ACE277F0EA893A44|com.site.client.rpc.MediaRpc|getMediaHiresHttpPath|java.lang.Integer|java.lang.Integer/3438268394|1|2|3|4|1|5|6|<span class="command-red">%d</span>|
-                            </code>
-                        </pre>
-                    </div>
+                                </code>
+                            </pre>
+                        </div>
 
-                    <p>This command line shows you how to basically use GWT-3D decoder with one simple GWT RPC request. The "Resulting fuzzing string" shows you where you can fuzz and the type of the variable that will be used server-side.</p>
-                    <br>
+                        <p>This command line shows you how to basically use GWT-3D decoder with one simple GWT RPC request. The "Resulting fuzzing string" shows you where you can fuzz and the type of the variable that will be used server-side.</p>
+                        <br>
 
-                    <div class="highlight">
-                        <pre>
-                            <code class="bash">
+                        <div class="highlight">
+                            <pre>
+                                <code class="bash">
 $ <span class="command">python3 gwt.py decode -i "4ï¿¿0ï¿¿11ï¿¿https://site.com/ï¿¿C33C748610876DA5ACE277F0EA893A44ï¿¿com.site.client.rpc.UserRpcï¿¿findActivatedUsersByProfileIdï¿¿java.lang.Integerï¿¿Iï¿¿java.lang.Stringï¿¿java.lang.Integer/3438268394ï¿¿pwdï¿¿ASCï¿¿nadminï¿¿1ï¿¿2ï¿¿3ï¿¿4ï¿¿6ï¿¿5ï¿¿6ï¿¿6ï¿¿7ï¿¿7ï¿¿7ï¿¿8ï¿¿1ï¿¿0ï¿¿100ï¿¿9ï¿¿10ï¿¿11ï¿¿" -m "~/available_methods.txt" -b</span>
 
 <span class="command-underline">Original request:</span>
@@ -324,16 +322,16 @@ $ <span class="command">python3 gwt.py decode -i "4ï¿¿0ï¿¿11ï¿¿https://
 UserRpc.findActivatedUsersByProfileId(java.lang.Integer 1, I 0, I 100, java.lang.String pwd, java.lang.String ASC, java.lang.String nadmin)
 <span class="command-underline">Resulting fuzzing string:</span>
 4|0|11|https://site.com/|C33C748610876DA5ACE277F0EA893A44|com.site.client.rpc.UserRpc|findActivatedUsersByProfileId|java.lang.Integer|I|java.lang.String|java.lang.Integer/3438268394|<span class="command-red">§pwd§</span>|<span class="command-red">§ASC§</span>|<span class="command-red">§nadmin§</span>|1|2|3|4|6|5|6|6|7|7|7|8|<span class="command-red">§1§</span>|<span class="command-red">§0§</span>|<span class="command-red">§100§</span>|9|10|11|
-                            </code>
-                        </pre>
-                    </div>
+                                </code>
+                            </pre>
+                        </div>
 
-                    <p>With this command line, you are able to see the server-side call equivalent to the GWT RPC request currently analyzed and to surround fuzzable parameters with Burp characters.</p>
-                    <br>
+                        <p>With this command line, you are able to see the server-side call equivalent to the GWT RPC request currently analyzed and to surround fuzzable parameters with Burp characters.</p>
+                        <br>
 
-                    <div class="highlight">
-                        <pre>
-                            <code class="bash">
+                        <div class="highlight">
+                            <pre>
+                                <code class="bash">
 $ <span class="command">python3 decode -i "/home/miaouplop/security/web/burp/logs/requests.log" -o "plop.txt" -f -b</span>
 <span class="command-underline">Encountered Error During Parsing with request:</span>
 4|0|14|https://site.com/|C33C748610876DA5ACE277F0EA893A44|com.site.client.rpc.TreeRpc|getThumbnailsDatas|java.lang.String|java.lang.Integer|java.lang.Boolean|I|Z|[Ljava.lang.String;|jxtrh8ts-1413979603637|java.lang.Integer/3438268394|java.lang.Boolean/476441737|creationDate|1|2|3|4|9|5|6|7|8|8|5|9|10|7|11|12|-1|13|0|0|60|14|0|0|0|
@@ -348,137 +346,136 @@ $ <span class="command">python3 decode -i "/home/miaouplop/security/web/burp/log
 4|0|14|https://site.com/|C33C748610876DA5ACE277F0EA893A44|com.site.client.rpc.TreeRpc|getThumbnailsDatas|java.lang.String|java.lang.Integer|java.lang.Boolean|I|Z|[Ljava.lang.String;|anprx235-1413979619663|java.lang.Integer/3438268394|java.lang.Boolean/476441737|creationDate|1|2|3|4|9|5|6|7|8|8|5|9|10|7|11|12|-1|13|0|0|60|14|0|0|0|
 
 Output saved to <span class="command-red">plop.txt</span>
-                            </code>
-                        </pre>
+                                </code>
+                            </pre>
+                        </div>
+
+                        <p>With this command line you are able to parse an entire burp log file and send the output to "plop.txt" file. The -f switch is used to output only fuzzable requests line by line. With this, can can send the file to your favourite fuzzer (burp here).
+                        <br>
+                        <i>Note &mdash; here we can see that there were errors during the parsing. Currently, they are printed on stdout but in the next versions they will be printed on stderr so that you can use stream redirections. There will be a deep inspection on this to see why some requests are not parsed.</i></p>
+
                     </div>
-
-                    <p>With this command line you are able to parse an entire burp log file and send the output to "plop.txt" file. The -f switch is used to output only fuzzable requests line by line. With this, can can send the file to your favourite fuzzer (burp here).
-                    <br>
-                    <i>Note &mdash; here we can see that there were errors during the parsing. Currently, they are printed on stdout but in the next versions they will be printed on stderr so that you can use stream redirections. There will be a deep inspection on this to see why some requests are not parsed.</i></p>
-
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Portfolio Grid Section -->
-    <section class="success" id="futur">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>Futur of GWT-3D</h2>
-                    <hr class="star-light">
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-6">
-                    <p>
-                        GWT-3D is at its beta version. It's, for now, only an adaptation of an existing tool to the newer versions of GWT. I didn't have the occasion to test it much so I hope you will be as many as possible to test & open issues on the repository so that I can build a good tool. Feel free to fork and make pull requests!
-                    </p>
-                </div>
-
-                <div class="col-lg-6">
-                    <p>I am also working on a Burp Suite plugin that can decode GWT RPC requests on the fly and pass fuzzable requests direclty to Burp Intruder. This plugin will be open-sourced too and the more you participate on testing the tool, the more the Burp plugin will be good!</p>
-                </div>
-
-                <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <a href="https://github.com/miaouPlop/GWT-Penetration-Testing-Toolset/fork" target="_blank" class="btn btn-lg btn-danger">
-                        <i class="fa fa-github-alt"></i> Fork me on github
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>Contact Me</h2>
-                    <hr class="star-primary">
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="text-center">
-                    You can contact me on <a href="https://github.com/miaouPlop/" target="_blank">GitHub</a> & <a href="https://twitter.com/miaouPlop" target="_blank">Twitter</a> or by mail at miaouplop+gwt3d[ at ]gmail.com.<br>
-                    Feel free to participate on testing the tool (I had access to only one GWT website) and post issues on GitHub. Feel also free to fork and send pull requests!<br>
-                    Have fun using the tool! 
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="text-center">
-        <div class="footer-above">
+        <!-- Portfolio Grid Section -->
+        <section class="success" id="futur">
             <div class="container">
                 <div class="row">
-                    <div class="footer-col col-md-4">
-                        <h3>Current Work</h3>
-                        <p>Security engineer at Airbus Defence & Space Cybersecurity</p>
+                    <div class="col-lg-12 text-center">
+                        <h2>Futur of GWT-3D</h2>
+                        <hr class="star-light">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <p>
+                            GWT-3D is at its beta version. It's, for now, only an adaptation of an existing tool to the newer versions of GWT. I didn't have the occasion to test it much so I hope you will be as many as possible to test & open issues on the repository so that I can build a good tool. Feel free to fork and make pull requests!
+                        </p>
                     </div>
 
-                    <div class="footer-col col-md-4">
-                        <h3>Around the Web</h3>
-                        <ul class="list-inline">
-                            <li>
-                                <a href="https://twitter.com/miaouPlop" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="http://fr.linkedin.com/in/lesecqueyorick/" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/miaouPlop/" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-github"></i></a>
-                            </li>
-                        </ul>
+                    <div class="col-lg-6">
+                        <p>I am also working on a Burp Suite plugin that can decode GWT RPC requests on the fly and pass fuzzable requests direclty to Burp Intruder. This plugin will be open-sourced too and the more you participate on testing the tool, the more the Burp plugin will be good!</p>
                     </div>
 
-                    <div class="footer-col col-md-4">
-                        <h3>About Freelancer</h3>
-                        <p>Freelance is a free to use, open source Bootstrap theme created by <a href="http://startbootstrap.com">Start Bootstrap</a>.</p>
+                    <div class="col-lg-8 col-lg-offset-2 text-center">
+                        <a href="https://github.com/miaouPlop/GWT-Penetration-Testing-Toolset/fork" target="_blank" class="btn btn-lg btn-danger">
+                            <i class="fa fa-github-alt"></i> Fork me on github
+                        </a>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="footer-below">
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12">
-                        Copyright &copy; Oo
+                    <div class="col-lg-12 text-center">
+                        <h2>Contact Me</h2>
+                        <hr class="star-primary">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="text-center">
+                        You can contact me on <a href="https://github.com/miaouPlop/" target="_blank">GitHub</a> & <a href="https://twitter.com/miaouPlop" target="_blank">Twitter</a> or by mail at miaouplop+gwt3d[ at ]gmail.com.<br>
+                        Feel free to participate on testing the tool (I had access to only one GWT website) and post issues on GitHub. Feel also free to fork and send pull requests!<br>
+                        Have fun using the tool! 
                     </div>
                 </div>
             </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center">
+            <div class="footer-above">
+                <div class="container">
+                    <div class="row">
+                        <div class="footer-col col-md-4">
+                            <h3>Current Work</h3>
+                            <p>Security engineer at Airbus Defence & Space Cybersecurity</p>
+                        </div>
+
+                        <div class="footer-col col-md-4">
+                            <h3>Around the Web</h3>
+                            <ul class="list-inline">
+                                <li>
+                                    <a href="https://twitter.com/miaouPlop" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
+                                </li>
+                                <li>
+                                    <a href="http://fr.linkedin.com/in/lesecqueyorick/" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
+                                </li>
+                                <li>
+                                    <a href="https://github.com/miaouPlop/" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-github"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="footer-col col-md-4">
+                            <h3>About Freelancer</h3>
+                            <p>Freelance is a free to use, open source Bootstrap theme created by <a href="http://startbootstrap.com">Start Bootstrap</a>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-below">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            Copyright &copy; Oo
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+        <div class="scroll-top page-scroll visible-xs visble-sm">
+            <a class="btn btn-primary" href="#page-top">
+                <i class="fa fa-chevron-up"></i>
+            </a>
         </div>
-    </footer>
 
-    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
-    <div class="scroll-top page-scroll visible-xs visble-sm">
-        <a class="btn btn-primary" href="#page-top">
-            <i class="fa fa-chevron-up"></i>
-        </a>
-    </div>
+        <!-- jQuery Version 1.11.0 -->
+        <script src="js/jquery-1.11.0.js"></script>
 
-    <!-- jQuery Version 1.11.0 -->
-    <script src="js/jquery-1.11.0.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="js/bootstrap.min.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+        <!-- Plugin JavaScript -->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+        <script src="js/classie.js"></script>
+        <script src="js/cbpAnimatedHeader.js"></script>
 
-    <!-- Plugin JavaScript -->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-    <script src="js/classie.js"></script>
-    <script src="js/cbpAnimatedHeader.js"></script>
+        <!-- Contact Form JavaScript -->
+        <script src="js/jqBootstrapValidation.js"></script>
+        <script src="js/contact_me.js"></script>
 
-    <!-- Contact Form JavaScript -->
-    <script src="js/jqBootstrapValidation.js"></script>
-    <script src="js/contact_me.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="js/freelancer.js"></script>
-
-</body>
+        <!-- Custom Theme JavaScript -->
+        <script src="js/freelancer.js"></script>
+    </body>
 
 </html>
