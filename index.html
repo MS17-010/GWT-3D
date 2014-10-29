@@ -60,7 +60,16 @@
                         <a href="#howto">Howto</a>
                     </li>
                     <li class="page-scroll">
+                        <a href="#futur">Futur</a>
+                    </li>
+                    <li class="page-scroll">
                         <a href="#contact">Contact</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#">Download</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="https://github.com/miaouPlop/GWT-Penetration-Testing-Toolset/fork" target="_blank">Fork</a>
                     </li>
                 </ul>
             </div>
@@ -109,7 +118,7 @@
                 </div>
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <a href="#" class="btn btn-lg btn-success">
-                        <i class="fa fa-download"></i> Download lastest release
+                        <i class="fa fa-github  "></i> Download lastest release
                     </a>
                 </div>
             </div>
@@ -132,7 +141,7 @@
                     <div class="highlight">
                         <pre>
                             <code class="bash">
-$ python3 gwt.py --help
+$ <span class="command">python3 gwt.py --help</span>
 usage: gwt.py [-h] [--verbose] [--debug] {enum,en,e,decode,de,dcd,dec,d} ...
 
 GWT pentest tool
@@ -170,7 +179,7 @@ Actions:
                     <div class="highlight">
                         <pre>
                             <code class="bash">
-$ python3 gwt.py enum --help
+$ <span class="command">python3 gwt.py enum --help</span>
 usage: gwt.py enum [-h] -u URL [-p PROXY] [-b BASICAUTH] [-c COOKIES]
                    [-o OUTPUT]
 
@@ -203,7 +212,7 @@ optional arguments:
                     <div class="highlight">
                         <pre>
                             <code class="bash">
-$ python3 gwt.py enum -u "https://site.com/plop.nocache.js?3790"
+$ <span class="command">python3 gwt.py enum -u "https://site.com/plop.nocache.js?3790"</span>
 This can take a very long time (like 3-4mn)
 AppletImportRpc.getAppletProperties()
 AppletImportRpc.getJavascriptProperties()
@@ -211,16 +220,16 @@ AuthorizationRpc.getAuthorizations()
 [...]
 UserRpc.setNewPwd(java.lang.Integer, java.lang.String, java.lang.String)
 UserRpc.setNewPwd(java.lang.Integer, java.lang.String, java.lang.String, java.lang.String)
-UserRpc.storeMetamodelForImport(com.keepeek.kpk360.client.transport.media.CustomMetamodelTransport)
+UserRpc.storeMetamodelForImport(com.site.client.transport.media.CustomMetamodelTransport)
                             </code>
                         </pre>
                     </div>
                     <p>This enumerates Java methods from the JS file given in parameter and outputs results on stdout.</p>
-
+                    <br>
                     <div class="highlight">
                         <pre>
                             <code class="bash">
-$ python3 gwt.py enum -u "https://site.com/plop.nocache.js?3790" -o test.txt
+$ <span class="command">python3 gwt.py enum -u "https://site.com/plop.nocache.js?3790" -o test.txt</span>
 This can take a very long time (like 3-4mn)
 Output saved to test.txt
                             </code>
@@ -239,7 +248,7 @@ Output saved to test.txt
                     <div class="highlight">
                         <pre>
                             <code class="bash">
-$ python3 gwt.py decode --help
+$ <span class="command">python3 gwt.py decode --help</span>
 usage: gwt.py decode [-h] -i INPUT [-s SURROUND] [-r REPLACE] [-b] [-p]
                      [-o OUTPUT] [-m METHODS] [-f]
 
@@ -270,7 +279,9 @@ optional arguments:
                 </div>
                 <div>
                     <p>Ths action can help you understand GWT RPC requests made by the application you're auditing. It can also help to know which parameters are fuzzable in a request. This action can work on a single request or on a Burp proxy log, for example. Then, using some options, you can configure fuzzing settings to suit your needs.<br>
-                    As for the enum action, you can specify an output file or use stdout.</p>
+                    As for the enum action, you can specify an output file or use stdout.
+                    <br>
+                    <i>Note &mdash; the -p/--pretty switch is not yet implemented, it will be in next versions.</i></p>
                 </div>
                 <br>
                 <div>
@@ -278,15 +289,83 @@ optional arguments:
                     <div class="highlight">
                         <pre>
                             <code class="bash">
+$ <span class="command">python3 gwt.py decode -i "4ï¿¿0ï¿¿6ï¿¿https://site.com/ï¿¿C33C748610876DA5ACE277F0EA893A44ï¿¿com.site.client.rpc.MediaRpcï¿¿getMediaHiresHttpPathï¿¿java.lang.Integerï¿¿java.lang.Integer/3438268394ï¿¿1ï¿¿2ï¿¿3ï¿¿4ï¿¿1ï¿¿5ï¿¿6ï¿¿123ï¿¿"</span>
+
+<span class="command-underline">Original request:</span>
+4ï¿¿0ï¿¿6ï¿¿https://site.com/ï¿¿C33C748610876DA5ACE277F0EA893A44ï¿¿com.site.client.rpc.MediaRpcï¿¿getMediaHiresHttpPathï¿¿java.lang.Integerï¿¿java.lang.Integer/3438268394ï¿¿1ï¿¿2ï¿¿3ï¿¿4ï¿¿1ï¿¿5ï¿¿6ï¿¿123ï¿¿
+<span class="command-underline">Resulting fuzzing string:</span>
+4|0|6|https://site.com/|C33C748610876DA5ACE277F0EA893A44|com.site.client.rpc.MediaRpc|getMediaHiresHttpPath|java.lang.Integer|java.lang.Integer/3438268394|1|2|3|4|1|5|6|<span class="command-red">%d</span>|
                             </code>
                         </pre>
                     </div>
+                    <p>This command line shows you how to basically use GWT-3D decoder with one simple GWT RPC request. The "Resulting fuzzing string" shows you where you can fuzz and the type of the variable that will be used server-side.</p>
+                    <br>
                     <div class="highlight">
                         <pre>
                             <code class="bash">
+$ <span class="command">python3 gwt.py decode -i "4ï¿¿0ï¿¿11ï¿¿https://site.com/ï¿¿C33C748610876DA5ACE277F0EA893A44ï¿¿com.site.client.rpc.UserRpcï¿¿findActivatedUsersByProfileIdï¿¿java.lang.Integerï¿¿Iï¿¿java.lang.Stringï¿¿java.lang.Integer/3438268394ï¿¿pwdï¿¿ASCï¿¿nadminï¿¿1ï¿¿2ï¿¿3ï¿¿4ï¿¿6ï¿¿5ï¿¿6ï¿¿6ï¿¿7ï¿¿7ï¿¿7ï¿¿8ï¿¿1ï¿¿0ï¿¿100ï¿¿9ï¿¿10ï¿¿11ï¿¿" -m "~/available_methods.txt" -b</span>
+
+<span class="command-underline">Original request:</span>
+4ï¿¿0ï¿¿11ï¿¿https://site.com/ï¿¿C33C748610876DA5ACE277F0EA893A44ï¿¿com.site.client.rpc.UserRpcï¿¿findActivatedUsersByProfileIdï¿¿java.lang.Integerï¿¿Iï¿¿java.lang.Stringï¿¿java.lang.Integer/3438268394ï¿¿pwdï¿¿ASCï¿¿nadminï¿¿1ï¿¿2ï¿¿3ï¿¿4ï¿¿6ï¿¿5ï¿¿6ï¿¿6ï¿¿7ï¿¿7ï¿¿7ï¿¿8ï¿¿1ï¿¿0ï¿¿100ï¿¿9ï¿¿10ï¿¿11ï¿¿
+<span class="command-underline">Equivalent Java method call:</span>
+UserRpc.findActivatedUsersByProfileId(java.lang.Integer 1, I 0, I 100, java.lang.String pwd, java.lang.String ASC, java.lang.String nadmin)
+<span class="command-underline">Resulting fuzzing string:</span>
+4|0|11|https://site.com/|C33C748610876DA5ACE277F0EA893A44|com.site.client.rpc.UserRpc|findActivatedUsersByProfileId|java.lang.Integer|I|java.lang.String|java.lang.Integer/3438268394|<span class="command-red">§pwd§</span>|<span class="command-red">§ASC§</span>|<span class="command-red">§nadmin§</span>|1|2|3|4|6|5|6|6|7|7|7|8|<span class="command-red">§1§</span>|<span class="command-red">§0§</span>|<span class="command-red">§100§</span>|9|10|11|
                             </code>
                         </pre>
                     </div>
+                    <p>With this command line, you are able to see the server-side call equivalent to the GWT RPC request currently analyzed and to surround fuzzable parameters with Burp characters.</p>
+                    <br>
+                    <div class="highlight">
+                        <pre>
+                            <code class="bash">
+$ <span class="command">python3 decode -i "/home/miaouplop/security/web/burp/logs/requests.log" -o "plop.txt" -f -b</span>
+<span class="command-underline">Encountered Error During Parsing with request:</span>
+4|0|14|https://site.com/|C33C748610876DA5ACE277F0EA893A44|com.site.client.rpc.TreeRpc|getThumbnailsDatas|java.lang.String|java.lang.Integer|java.lang.Boolean|I|Z|[Ljava.lang.String;|jxtrh8ts-1413979603637|java.lang.Integer/3438268394|java.lang.Boolean/476441737|creationDate|1|2|3|4|9|5|6|7|8|8|5|9|10|7|11|12|-1|13|0|0|60|14|0|0|0|
+
+<span class="command-underline">Encountered Error During Parsing with request:</span>
+4|0|14|https://site.com/|C33C748610876DA5ACE277F0EA893A44|com.site.client.rpc.TreeRpc|getThumbnailsDatas|java.lang.String|java.lang.Integer|java.lang.Boolean|I|Z|[Ljava.lang.String;|k4tnblyc-1413979609284|java.lang.Integer/3438268394|java.lang.Boolean/476441737|creationDate|1|2|3|4|9|5|6|7|8|8|5|9|10|7|11|12|-1|13|0|0|60|14|0|0|0|
+
+<span class="command-underline">Encountered Error During Parsing with request:</span>
+4|0|14|https://site.com/|C33C748610876DA5ACE277F0EA893A44|com.site.client.rpc.TreeRpc|getThumbnailsDatas|java.lang.String|java.lang.Integer|java.lang.Boolean|I|Z|[Ljava.lang.String;|ll11tggc-1413979603775|java.lang.Integer/3438268394|java.lang.Boolean/476441737|creationDate|1|2|3|4|9|5|6|7|8|8|5|9|10|7|11|12|-1|13|0|0|60|14|0|0|0|
+
+<span class="command-underline">Encountered Error During Parsing with request:</span>
+4|0|14|https://site.com/|C33C748610876DA5ACE277F0EA893A44|com.site.client.rpc.TreeRpc|getThumbnailsDatas|java.lang.String|java.lang.Integer|java.lang.Boolean|I|Z|[Ljava.lang.String;|anprx235-1413979619663|java.lang.Integer/3438268394|java.lang.Boolean/476441737|creationDate|1|2|3|4|9|5|6|7|8|8|5|9|10|7|11|12|-1|13|0|0|60|14|0|0|0|
+
+Output saved to <span class="command-red">plop.txt</span>
+                            </code>
+                        </pre>
+                    </div>
+                    <p>With this command line you are able to parse an entire burp log file and send the output to "plop.txt" file. The -f switch is used to output only fuzzable requests line by line. With this, can can send the file to your favourite fuzzer (burp here).
+                    <br>
+                    <i>Note &mdash; here we can see that there were errors during the parsing. Currently, they are printed on stdout but in the next versions they will be printed on stderr so that you can use stream redirections. There will be a deep inspection on this to see why some requests are not parsed.</i></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Grid Section -->
+    <section class="success" id="futur">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Futur of GWT-3D</h2>
+                    <hr class="star-light">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <p>
+                        GWT-3D is at its beta version. It's, for now, only an adaptation of an existing tool to the newer versions of GWT. I didn't have the occasion to test it much so I hope you will be as many as possible to test & open issues on the repository so that I can build a good tool. Feel free to fork and make pull requests!
+                    </p>
+                </div>
+                <div class="col-lg-6">
+                    <p>I am also working on a Burp Suite plugin that can decode GWT RPC requests on the fly and pass fuzzable requests direclty to Burp Intruder. This plugin will be open-sourced too and the more you participate on testing the tool, the more the Burp plugin will be good!</p>
+                </div>
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <a href="https://github.com/miaouPlop/GWT-Penetration-Testing-Toolset/fork" target="_blank" class="btn btn-lg btn-danger">
+                        <i class="fa fa-github-alt"></i> Fork me on github
+                    </a>
                 </div>
             </div>
         </div>
@@ -303,9 +382,9 @@ optional arguments:
             </div>
             <div class="row">
                 <div class="text-center">
-                    You can contact me on <a href="https://github.com/miaouPlop/" target="_blank">GitHub</a> & <a href="https://twitter.com/miaouPlop" target="_blank">Twitter</a> or by mail at miaouplop+gwtptt[ at ]gmail.com.<br>
+                    You can contact me on <a href="https://github.com/miaouPlop/" target="_blank">GitHub</a> & <a href="https://twitter.com/miaouPlop" target="_blank">Twitter</a> or by mail at miaouplop+gwt3d[ at ]gmail.com.<br>
                     Feel free to participate on testing the tool (I had access to only one GWT website) and post issues on GitHub. Feel also free to fork and send pull requests!<br>
-                    Have fun using the script! 
+                    Have fun using the tool! 
                 </div>
             </div>
         </div>

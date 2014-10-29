@@ -1,3 +1,14 @@
+.command {
+  color:#9BA2A3;
+}
+.command-underline {
+  color:#9BA2A3;
+  text-decoration: underline;
+}
+.command-red {
+  color:#BA0B22;
+}
+
 @font-face {
   font-family: 'OpenSansLight';
   src: url("../fonts/OpenSans-Light-webfont.eot");
