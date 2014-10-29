@@ -72,10 +72,8 @@
                         <a href="https://github.com/miaouPlop/GWT-Penetration-Testing-Toolset/fork" target="_blank">Fork</a>
                     </li>
                 </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
+            </div> <!-- /.navbar-collapse -->
+        </div> <!-- /.container-fluid -->
     </nav>
 
     <!-- Header -->
@@ -83,11 +81,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <img class="img-responsive" src="https://avatars0.githubusercontent.com/u/786428?v=2&s=460" alt="">
+                    <img class="img-responsive" src="img/logo_450.png" alt="">
                     <div class="intro-text">
                         <span class="name">GWT-3D</span>
                         <hr class="star-light">
-                        <span class="skills">GWT Method enumerator - GWT Request decoder</span>
+                        <span class="skills">Discover, Decode, Destroy</span>
                     </div>
                 </div>
             </div>
@@ -103,6 +101,7 @@
                     <hr class="star-primary">
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-lg-4">
                     <p>
@@ -110,12 +109,15 @@
                         It is "a set of tools made to assist in penetration testing GWT applications". The last update on this tool is from years ago. But GWT has updated since then and the tool doesn't work anymore. That's where this one comes.
                     </p>
                 </div>
+
                 <div class="col-lg-4">
                     <p>It is a new version of the tool that uses the same parsing algorithm as before but updated thanks to how GWT creates requests now. It also has new options and usability has been improved a lot. A lot of bugs from the previous versions are now fixed. Moreover it is usable with Python 2 and Python 3 (however, the documentation will use Python 3)!</p>
                 </div>
+
                 <div class="col-lg-4">
                     <p>There are two types of usage for the tools: enumerate Java (server side) methods and parameters and/or decode GWT requests to have a better understanding of how it works and to create fuzzing strings.</p>
                 </div>
+
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <a href="#" class="btn btn-lg btn-success">
                         <i class="fa fa-github  "></i> Download lastest release
@@ -201,12 +203,15 @@ optional arguments:
                         </pre>
                     </div>
                 </div>
+
                 <div>
                     <p>This action can help you to enumerate Java methods and parameters. To do so, you have to give the script the URL to a "nocache.js" file. This file is a particular GWT JS file that helps get other JS files from server cache. By using some tricks, an unauthenticated user can enumerate all server methods.<br>
                     If needed, you can set up a bunch of options like a proxy, some cookies to use with the request and basic authentication (you will be prompted for credentials during the execution of the script).
                     The last option is to use a different output than the default one (stdout). You can specify a file (that will be created if doesn't exist) and then everything will be saved in there!</p>
                 </div>
+
                 <br>
+
                 <div>
                     <p><h4>Examples</h4></p>
                     <div class="highlight">
@@ -224,8 +229,10 @@ UserRpc.storeMetamodelForImport(com.site.client.transport.media.CustomMetamodelT
                             </code>
                         </pre>
                     </div>
+
                     <p>This enumerates Java methods from the JS file given in parameter and outputs results on stdout.</p>
                     <br>
+
                     <div class="highlight">
                         <pre>
                             <code class="bash">
@@ -236,6 +243,7 @@ Output saved to test.txt
                         </pre>
 
                     </div>
+
                     <p>This enumerates Java methods from the JS file given in parameter and outputs results in the file specified.</p>
                 </div>
             </div>
@@ -277,13 +285,16 @@ optional arguments:
                         </pre>
                     </div>
                 </div>
+
                 <div>
                     <p>Ths action can help you understand GWT RPC requests made by the application you're auditing. It can also help to know which parameters are fuzzable in a request. This action can work on a single request or on a Burp proxy log, for example. Then, using some options, you can configure fuzzing settings to suit your needs.<br>
                     As for the enum action, you can specify an output file or use stdout.
                     <br>
                     <i>Note &mdash; the -p/--pretty switch is not yet implemented, it will be in next versions.</i></p>
                 </div>
+
                 <br>
+
                 <div>
                     <p><h4>Examples</h4></p>
                     <div class="highlight">
@@ -298,8 +309,10 @@ $ <span class="command">python3 gwt.py decode -i "4ï¿¿0ï¿¿6ï¿¿https://s
                             </code>
                         </pre>
                     </div>
+
                     <p>This command line shows you how to basically use GWT-3D decoder with one simple GWT RPC request. The "Resulting fuzzing string" shows you where you can fuzz and the type of the variable that will be used server-side.</p>
                     <br>
+
                     <div class="highlight">
                         <pre>
                             <code class="bash">
@@ -314,8 +327,10 @@ UserRpc.findActivatedUsersByProfileId(java.lang.Integer 1, I 0, I 100, java.lang
                             </code>
                         </pre>
                     </div>
+
                     <p>With this command line, you are able to see the server-side call equivalent to the GWT RPC request currently analyzed and to surround fuzzable parameters with Burp characters.</p>
                     <br>
+
                     <div class="highlight">
                         <pre>
                             <code class="bash">
@@ -336,9 +351,11 @@ Output saved to <span class="command-red">plop.txt</span>
                             </code>
                         </pre>
                     </div>
+
                     <p>With this command line you are able to parse an entire burp log file and send the output to "plop.txt" file. The -f switch is used to output only fuzzable requests line by line. With this, can can send the file to your favourite fuzzer (burp here).
                     <br>
                     <i>Note &mdash; here we can see that there were errors during the parsing. Currently, they are printed on stdout but in the next versions they will be printed on stderr so that you can use stream redirections. There will be a deep inspection on this to see why some requests are not parsed.</i></p>
+
                 </div>
             </div>
         </div>
@@ -353,15 +370,18 @@ Output saved to <span class="command-red">plop.txt</span>
                     <hr class="star-light">
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-lg-6">
                     <p>
                         GWT-3D is at its beta version. It's, for now, only an adaptation of an existing tool to the newer versions of GWT. I didn't have the occasion to test it much so I hope you will be as many as possible to test & open issues on the repository so that I can build a good tool. Feel free to fork and make pull requests!
                     </p>
                 </div>
+
                 <div class="col-lg-6">
                     <p>I am also working on a Burp Suite plugin that can decode GWT RPC requests on the fly and pass fuzzable requests direclty to Burp Intruder. This plugin will be open-sourced too and the more you participate on testing the tool, the more the Burp plugin will be good!</p>
                 </div>
+
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <a href="https://github.com/miaouPlop/GWT-Penetration-Testing-Toolset/fork" target="_blank" class="btn btn-lg btn-danger">
                         <i class="fa fa-github-alt"></i> Fork me on github
@@ -380,6 +400,7 @@ Output saved to <span class="command-red">plop.txt</span>
                     <hr class="star-primary">
                 </div>
             </div>
+
             <div class="row">
                 <div class="text-center">
                     You can contact me on <a href="https://github.com/miaouPlop/" target="_blank">GitHub</a> & <a href="https://twitter.com/miaouPlop" target="_blank">Twitter</a> or by mail at miaouplop+gwt3d[ at ]gmail.com.<br>
@@ -399,6 +420,7 @@ Output saved to <span class="command-red">plop.txt</span>
                         <h3>Current Work</h3>
                         <p>Security engineer at Airbus Defence & Space Cybersecurity</p>
                     </div>
+
                     <div class="footer-col col-md-4">
                         <h3>Around the Web</h3>
                         <ul class="list-inline">
@@ -413,6 +435,7 @@ Output saved to <span class="command-red">plop.txt</span>
                             </li>
                         </ul>
                     </div>
+
                     <div class="footer-col col-md-4">
                         <h3>About Freelancer</h3>
                         <p>Freelance is a free to use, open source Bootstrap theme created by <a href="http://startbootstrap.com">Start Bootstrap</a>.</p>
