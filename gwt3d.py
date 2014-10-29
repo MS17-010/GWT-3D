@@ -1,14 +1,14 @@
-# coding=utf-8
 #!/usr/bin/env python3
+#  coding=utf-8
 
 
 import argparse
-import gwt.GWTRequest
-import gwt.GWTEnumerator
+import gwt3d.GWTRequest
+import gwt3d.GWTEnumerator
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="GWT pentest tool")
+    parser = argparse.ArgumentParser(description="GWT-3D: GWT RPC pentest tool")
     parser.add_argument("--verbose", help="Verbose mode", action="store_true")
     parser.add_argument("--debug", help="Debug mode", action="store_true")
 
@@ -59,7 +59,7 @@ if __name__ == "__main__":
         basicauth = args.basicauth
         cookies = args.cookies
 
-        gwt_enum = gwt.GWTEnumerator.GWTEnum(url, output, proxy, basicauth, cookies, verbose, debug)
+        gwt_enum = gwt3d.GWTEnumerator.GWTEnum(url, output, proxy, basicauth, cookies, verbose, debug)
         gwt_enum.enum()
         gwt_enum.display()
     elif subparser_name in ['decode', 'de', 'dcd', 'dec', 'd']:
@@ -72,8 +72,8 @@ if __name__ == "__main__":
         surround = args.surround
         methods = args.methods
 
-        gwt_req_parser = gwt.GWTRequest.GWTReq(user_input, output, fuzz, pretty,
-                                               burp, replace, surround, methods, verbose, debug)
+        gwt_req_parser = gwt3d.GWTRequest.GWTReq(user_input, output, fuzz, pretty,
+                                                 burp, replace, surround, methods, verbose, debug)
         gwt_req_parser.parse()
     else:
         parser.parse_args(["--help"])

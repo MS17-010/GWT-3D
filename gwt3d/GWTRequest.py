@@ -4,7 +4,7 @@
 import re
 import sys
 import os.path
-import gwt.GWTRequestParser
+import gwt3d.GWTRequestParser
 
 
 class GWTReq(object):
@@ -19,7 +19,7 @@ class GWTReq(object):
         self.verbose = verbose
         self.debug = debug
 
-        self._parser = gwt.GWTRequestParser.GWTReqParser(burp, replace, surround, verbose, debug)
+        self._parser = gwt3d.GWTRequestParser.GWTReqParser(burp, replace, surround, verbose, debug)
         self._is_pipe_used = True
         self._methods_lookup = dict()
         self._re_class_name = re.compile("([\w]+)\.[\w]+\(", re.I)

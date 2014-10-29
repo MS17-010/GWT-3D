@@ -22,8 +22,7 @@
 """
 
 import re
-import os
-import gwt.Parameter
+import gwt3d.Parameter
 
 
 #################################################
@@ -470,13 +469,13 @@ class GWTReqParser(object):
         value = self._get_nextval()
 
         if self.parameters[self.pidx].is_array and self.parameters[self.pidx].is_custom_obj:
-            customParam = gwt.Parameter.Param(value)
+            customParam = gwt3d.Parameter.Param(value)
             customParam.is_custom_obj = True
             self.parameters[self.pidx].values.append(customParam)
             self.parameters[self.pidx].flag = True
 
         if self.parameters[self.pidx].is_list and self.parameters[self.pidx].is_custom_obj:
-            customParam = gwt.Parameter.Param(value)
+            customParam = gwt3d.Parameter.Param(value)
             customParam.is_custom_obj = True
             self.parameters[self.pidx].values.append(customParam)
 
@@ -640,7 +639,7 @@ class GWTReqParser(object):
             num_of_params = self._pop_index()  # Number of Method parameters
 
             for i in range(num_of_params):
-                self.parameters.append(gwt.Parameter.Param(self._get_nextval()))
+                self.parameters.append(gwt3d.Parameter.Param(self._get_nextval()))
 
             for param in self.parameters:
                 if num_of_params > self.pidx:  # If parameter index is greater than number of params then we are done
