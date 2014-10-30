@@ -194,7 +194,11 @@ class GWTEnum(object):
 
                                 number_of_param = self._get_param_number(payload_function, js_function)
                                 self._set_param_definition(number_of_param, payload_function)
-                                self.methods[-1] = self.methods[-1][:-2] + ")"
+
+                                if number_of_param > 0:
+                                    self.methods[-1] = self.methods[-1][:-2] + ")"
+                                else:
+                                    self.methods[-1] += ")"
 
                                 break
                     else:
