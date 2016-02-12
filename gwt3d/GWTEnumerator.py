@@ -74,16 +74,21 @@ class GWTEnum(object):
         if self.basic_auth is True and self.basic_auth_encoded is None:
             try:
                 username = input("Basic auth username: ")
-            except:
+                password = getpass.getpass("Basic auth password: ")
+                self.basic_auth_encoded = base64.b64encode(bytes('%s:%s' % (username, password), 'UTF-8')).strip()
+            except Exception as e:
                 username = raw_input("Basic auth username: ")
+                password = getpass.getpass("Basic auth password: ")
+                self.basic_auth_encoded = base64.b64encode('%s:%s' % (username, password)).strip()
 
-            password = getpass.getpass("Basic auth password: ")
-            self.basic_auth_encoded = base64.encode('%s:%s' % (username, password)).strip()
             req.add_header("Authorization", "Basic %s" % self.basic_auth_encoded)
 
         if self.cookies is not None:
             req.add_header("Cookies", self.cookies)
 
+        req.add_header("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2342.2 Safari/537.36")
+        req.add_header("Accept-Language", "fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4")
+        print(url)
         return urllib.urlopen(req)
 
     def _find_html_files(self):

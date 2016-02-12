@@ -27,7 +27,7 @@ if __name__ == "__main__":
 
     enum.add_argument("-u", "--url", help="URL of the nocache.js file", required=True)
     enum.add_argument("-p", "--proxy", help="Proxy host and port (i.e.: \"http://localhost:8080\")")
-    enum.add_argument("-b", "--basicauth", help="Basic authentication credentials")
+    enum.add_argument("-b", "--basicauth", help="Basic authentication credentials", action="store_true")
     enum.add_argument("-c", "--cookies", help="Cookies to use to get the JS files")
     enum.add_argument("-o", "--output", default="stdout",
                         help="Absolute path were to store all parsed requests (default \"stdout\")", action="store")
@@ -46,6 +46,7 @@ if __name__ == "__main__":
                         "This file can be obtained by running the \"enum\" script", action="store")
     decode.add_argument("-f", "--fuzz",
                         help="Outputs only fuzzable strings", action="store_true")
+    print()
 
     args = parser.parse_args()
     verbose = args.verbose
